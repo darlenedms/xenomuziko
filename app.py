@@ -1,11 +1,19 @@
 # -*- coding: utf-8 -*-
 
-from bottle import route, run
+from bottle import Bottle
+
+app = Bottle()
 
 
-@route('/')
+@app.get('/')
 def index():
     return 'Hello World!'
 
+
+@app.error(404)
+def error404(error):
+    return 'Nothing here, sorry'
+
+
 if __name__ == '__main__':
-    run(host='localhost', port=8080)
+    app.run(host='localhost', port=8080)
