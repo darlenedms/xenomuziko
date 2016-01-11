@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
 
-from bottle import Bottle
+from bottle import Bottle, template
 
 app = Bottle()
 
 
 @app.get('/')
 def index():
-    return 'Hello World!'
+    return template('index')
 
 
 @app.error(404)
 def error404(error):
-    return 'Nothing here, sorry'
+    return template('404')
 
 
 if __name__ == '__main__':

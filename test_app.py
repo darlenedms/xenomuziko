@@ -13,7 +13,7 @@ class TestHomePage(unittest.TestCase):
     def test_app_index(self):
         resp = self.myapp.get('/')
         assert resp.status_code == 200
-        assert resp.body.decode("utf-8") == 'Hello World!'
+        assert 'Hello World!' in resp.body.decode("utf-8")
 
     def test_page_not_found(self):
         try:
