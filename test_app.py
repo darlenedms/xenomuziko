@@ -10,10 +10,18 @@ class TestHomePage(unittest.TestCase):
     def setUp(self):
         self.myapp = webtest.TestApp(app.app)
 
-    def test_app_index(self):
+    def test_index(self):
         resp = self.myapp.get('/')
-        assert resp.status_code == 200
-        assert 'Hello World!' in resp.body.decode("utf-8")
+
+        self.assertEqual(resp.status_code, 200)
+        self.assertNotEqual(
+            resp.html.find('input', attrs={'name': 'username'}), None)
+
+    def test_result_page(self):
+        resp = self.myapp.post('/result', {'username': 'yada'})
+
+        self.assertEqual(resp.status_code, 200)
+        self.assertNotEqual(resp.text.find('yada'), -1)
 
     def test_page_not_found(self):
         try:
