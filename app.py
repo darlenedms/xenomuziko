@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from bottle import Bottle, template, request
+from lastfm import get_top_artists
 
 app = Bottle()
 
@@ -13,7 +14,8 @@ def index():
 @app.post('/result')
 def result():
     username = request.forms.get('username')
-    return template('result', username=username)
+    artists = get_top_artists(username)
+    return template('result', username=username, data=artists)
 
 
 @app.error(404)
